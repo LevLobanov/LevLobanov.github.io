@@ -1,0 +1,127 @@
+:root {
+    --bg-base: #ffffff;
+    --text-main: #000000;
+    --text-secondary: #555555;
+    --clr-neon-lime: #bdff00;
+    --clr-neon-yellow: #CFEC14;
+    --clr-neon-green: #96EA00; 
+    --clr-accent-orange: #ff5722;
+    --border-color: #000000;
+    --grid-color: rgba(0, 0, 0, 0.05);
+}
+
+.blueprint-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: 
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.corner-cross {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.background-blobs {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+    background: #ffffff;
+    filter: contrast(1) blur(40px);
+}
+
+.blob {
+    --top: -10%;
+    --right: -10%;
+    --width: 600px;
+    --height: 400px;
+    --animation-duration: 20s;
+    --animation-delay: -5s;
+    --inner-color: var(--clr-neon-lime, #bdff00);
+    --outer-color: var(--clr-neon-green, #39ff14);
+    position: absolute;
+    border-radius: 50%;
+    animation: fluidMove 25s infinite alternate ease-in-out;
+    background: radial-gradient(
+        circle at center, 
+        var(--inner-color) 0%,
+        var(--inner-color) 30%,
+        var(--outer-color) 50%,
+        var(--outer-color) 85%,
+        #ffffff 100%
+    );
+}
+
+@keyframes fluidMove {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 35% 65% 60% 40% / 40% 45% 55% 60%; }
+    50% { transform: translate(-60px, 40px) scale(1.15) rotate(120deg); border-radius: 60% 40% 45% 55% / 50% 60% 40% 50%; }
+    100% { transform: translate(40px, -30px) scale(0.9) rotate(240deg); border-radius: 40% 50% 60% 40% / 55% 45% 55% 45%; }
+}
+
+.dots-matrix {
+    --width: 120px;
+    --height: 60px;
+    --gap-x: 10px;
+    --gap-y: 10px;
+    --dot-size: 1.5px;
+    --color: var(--text-main);
+    position: absolute;
+    width: var(--w);
+    height: var(--h);
+    background-image: radial-gradient(var(--color) var(--dot-size), transparent var(--dot-size));
+    background-size: var(--gap-x) var(--gap-y);
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.pcb-trace {
+    position: absolute;
+    border-left: 1px solid var(--text-main);
+    border-bottom: 1px solid var(--text-main);
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.tech-circle {
+    position: absolute;
+    border: 1px dashed var(--text-main);
+    border-radius: 50%;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.sparkle-icon {
+    position: absolute;
+    width: 31px;
+    height: 31px;
+    opacity: 0.4;
+}
+.sparkle-icon::before, .sparkle-icon::after {
+    content: "";
+    position: absolute;
+    background: var(--text-main);
+}
+.sparkle-icon::before { top: 15px; left: 0; width: 31px; height: 1px; }
+.sparkle-icon::after { left: 15px; top: 0; width: 1px; height: 31px; }
+
+.barcode {
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, 
+        #000 0% 5%, transparent 5% 8%, #000 8% 10%, transparent 10% 18%,
+        #000 18% 28%, transparent 28% 30%, #000 30% 32%, transparent 32% 45%,
+        #000 45% 55%, transparent 55% 58%, #000 58% 70%, transparent 70% 72%,
+        #000 72% 90%, transparent 90% 92%, #000 92% 100%);
+    opacity: 0.8;
+}
