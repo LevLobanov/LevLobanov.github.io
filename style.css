@@ -339,7 +339,7 @@ footer {
     color: var(--text-secondary);
 }
 
-.project-card-v .p-lang {
+.project-card-v .p-tech {
     color: var(--clr-accent-orange);
     font-weight: 700;
 }
@@ -390,3 +390,234 @@ footer {
 @media (min-width: 2600px) { .page-scale-wrapper { --scale: 1.8; } }
 @media (min-width: 3000px) { .page-scale-wrapper { --scale: 2.0; } }
 @media (min-width: 3400px) { .page-scale-wrapper { --scale: 2.2; } }
+
+/* ========================================================================= */
+/* СТАНДАРТИЗИРОВАННЫЕ ССЫЛКИ И ЭФФЕКТ "МАРКЕРА" (HIGHLIGHT ANIMATION)       */
+/* ========================================================================= */
+
+.tech-link {
+    color: var(--clr-accent-orange);
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding: 1px 4px;
+    margin: -1px -4px;
+    z-index: 1;
+    transition: color 0.2s ease;
+}
+
+/* Фновый прямоугольник ("текстовыделитель") */
+.tech-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--clr-neon-lime);
+    z-index: -1;
+    
+    /* Изначально сжат до 0% ширины слева */
+    transform: scaleX(0);
+    transform-origin: left center;
+    
+    /* Функция кубического Безье: 
+       - При убирании курсора (out): разгоняется вначале (справа), замедляется в конце (слева) */
+    transition: transform 0.35s cubic-bezier(0.7, 0, 0.84, 0);
+}
+
+/* Эффект при наведении */
+.tech-link:hover {
+    color: #000000; /* Контрастный текст на неоново-зеленом фоне */
+}
+
+.tech-link:hover::before {
+    /* Растягивается до 100% ширины */
+    transform: scaleX(1);
+    
+    /* Функция кубического Безье при наведении (in):
+       - Разгоняется быстро справа и плавно замедляется к финишу */
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Иконка стрелочки с лёгким смещением при ховере */
+.arrow-icon {
+    display: inline-block;
+    font-size: 0.9em;
+    transition: transform 0.2s ease;
+}
+
+.tech-link:hover .arrow-icon {
+    transform: translate(2px, -2px);
+}
+
+
+/* ========================================================================= */
+/* СЕКЦИЯ СЕРТИФИКАТОВ: CLEAN SLASH-ZEBRA WITH SOFT TEXT MASK                */
+/* ========================================================================= */
+
+.cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 20px;
+}
+
+.cert-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 0.8fr 0.8fr;
+    align-items: center;
+    padding: 20px 24px;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+    color: var(--text-main);
+    overflow: hidden;
+    transition: background-color 0.25s ease;
+}
+
+.cert-item:hover {
+    background: rgba(0, 0, 0, 0.015); /* Едва заметный отклик всей строки */
+}
+
+/* Все текстовые колонки абсолютно чистые — без блюра, фона и рамок */
+.cert-col {
+    font-size: 13px;
+    z-index: 2; /* Текст гарантированно сверху */
+    position: relative;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+}
+
+.cert-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cert-code {
+    font-size: 10px;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+}
+
+.cert-name {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.cert-issuer {
+    color: var(--clr-accent-orange);
+    font-weight: 500;
+}
+
+.cert-date {
+    color: var(--text-secondary);
+}
+
+.cert-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.status-badge {
+    font-size: 11px;
+    color: var(--text-main);
+}
+
+.arrow-icon {
+    transition: transform 0.2s ease;
+}
+
+.cert-item:hover .arrow-icon {
+    transform: translate(3px, -3px);
+}
+
+/* ------------------------------------------------------------------------- */
+/* АНИМАЦИЯ ПОЛОС С МЯГКИМ МАСКИРОВАНИЕМ В ЗОНАХ ТЕКСТА                     */
+/* ------------------------------------------------------------------------- */
+
+.cert-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+
+    /* Рисуем паттерн полосок */
+    background-image: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.3) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.3) 75%,
+        transparent 75%,
+        transparent 100%
+    );
+    background-size: 20px 20px;
+
+    /* МЯГКАЯ МАСКА: полосы просвечивают на 100% по краям и размываются/гаснут до 20% в зоне текста */
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.2) 15%,
+        rgba(0, 0, 0, 0.2) 85%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.2) 15%,
+        rgba(0, 0, 0, 0.2) 85%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+}
+
+.cert-item:hover::before {
+    opacity: 1;
+    animation: 
+        /* Разгон (анимация ускоряется к концу выезда) */
+        slashFlyIn 0.35s cubic-bezier(0.7, 0, 0.84, 0) forwards,
+        /* Бесконечный сдвиг */
+        slashInfiniteShift 1s linear infinite 0.35s;
+}
+
+@keyframes slashFlyIn {
+    0% {
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        background-position-x: 0px;
+    }
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        background-position-x: 0px;
+    }
+}
+
+@keyframes slashInfiniteShift {
+    0% {
+        background-position-x: 0px;
+    }
+    100% {
+        background-position-x: 20px;
+    }
+}
+
+/* Адаптив под мобильные устройства */
+@media (max-width: 680px) {
+    .cert-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .cert-status {
+        justify-content: flex-start;
+        gap: 12px;
+    }
+}
