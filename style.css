@@ -57,7 +57,6 @@ body {
     font-size: 18px;
 }
 
-/* ОСНОВНОЙ КОНТЕЙНЕР */
 .main-container {
     flex: 1;
     padding: 60px;
@@ -82,7 +81,6 @@ body {
     color: var(--clr-accent-orange);
 }
 
-/* БЛОК ИМЕНИ */
 .name-block {
     position: relative;
 }
@@ -94,7 +92,6 @@ h1 {
     font-weight: 700;
     letter-spacing: -0.04em;
     color: var(--text-main);
-    /* mix-blend-mode: difference; Обеспечивает 100% читаемость: инвертирует цвет букв на черных участках хрома */
 }
 
 .version-tag {
@@ -108,7 +105,6 @@ h1 {
     font-weight: bold;
 }
 
-/* СУММАРИ И КАРТОЧКА */
 .info-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -182,7 +178,6 @@ h1 {
     bottom: -10px;
 }
 
-/* СЕКЦИИ */
 .section-title {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
@@ -247,23 +242,16 @@ footer {
     justify-content: space-between;
 }
 
-/* ========================================================================= */
-/* СЕКЦИЯ ПРОЕКТОВ (ВЕРТИКАЛЬНЫЙ СТЕК)                                       */
-/* ========================================================================= */
-
 .project-card-v {
     display: flex;
     border: 1px solid var(--border-color);
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(5px);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    /* Новые свойства для корректного отображения ссылки */
     text-decoration: none;
     color: inherit; 
 }
 
-/* Все остальные стили остаются без изменений */
 .projects-vertical-stack {
     display: flex;
     flex-direction: column;
@@ -391,10 +379,6 @@ footer {
 @media (min-width: 3000px) { .page-scale-wrapper { --scale: 2.0; } }
 @media (min-width: 3400px) { .page-scale-wrapper { --scale: 2.2; } }
 
-/* ========================================================================= */
-/* СТАНДАРТИЗИРОВАННЫЕ ССЫЛКИ И ЭФФЕКТ "МАРКЕРА" (HIGHLIGHT ANIMATION)       */
-/* ========================================================================= */
-
 .tech-link {
     color: var(--clr-accent-orange);
     text-decoration: none;
@@ -406,38 +390,26 @@ footer {
     transition: color 0.2s ease;
 }
 
-/* Фновый прямоугольник ("текстовыделитель") */
 .tech-link::before {
     content: "";
     position: absolute;
     inset: 0;
     background-color: var(--clr-neon-lime);
     z-index: -1;
-    
-    /* Изначально сжат до 0% ширины слева */
     transform: scaleX(0);
     transform-origin: left center;
-    
-    /* Функция кубического Безье: 
-       - При убирании курсора (out): разгоняется вначале (справа), замедляется в конце (слева) */
     transition: transform 0.35s cubic-bezier(0.7, 0, 0.84, 0);
 }
 
-/* Эффект при наведении */
 .tech-link:hover {
-    color: #000000; /* Контрастный текст на неоново-зеленом фоне */
+    color: #000000;
 }
 
 .tech-link:hover::before {
-    /* Растягивается до 100% ширины */
     transform: scaleX(1);
-    
-    /* Функция кубического Безье при наведении (in):
-       - Разгоняется быстро справа и плавно замедляется к финишу */
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Иконка стрелочки с лёгким смещением при ховере */
 .arrow-icon {
     display: inline-block;
     font-size: 0.9em;
@@ -447,11 +419,6 @@ footer {
 .tech-link:hover .arrow-icon {
     transform: translate(2px, -2px);
 }
-
-
-/* ========================================================================= */
-/* СЕКЦИЯ СЕРТИФИКАТОВ: CLEAN SLASH-ZEBRA WITH SOFT TEXT MASK                */
-/* ========================================================================= */
 
 .cert-list {
     display: flex;
@@ -476,13 +443,12 @@ footer {
 }
 
 .cert-item:hover {
-    background: rgba(0, 0, 0, 0.015); /* Едва заметный отклик всей строки */
+    background: rgba(0, 0, 0, 0.015);
 }
 
-/* Все текстовые колонки абсолютно чистые — без блюра, фона и рамок */
 .cert-col {
     font-size: 13px;
-    z-index: 2; /* Текст гарантированно сверху */
+    z-index: 2;
     position: relative;
     background: transparent !important;
     backdrop-filter: none !important;
@@ -535,10 +501,6 @@ footer {
     transform: translate(3px, -3px);
 }
 
-/* ------------------------------------------------------------------------- */
-/* АНИМАЦИЯ ПОЛОС С МЯГКИМ МАСКИРОВАНИЕМ В ЗОНАХ ТЕКСТА                     */
-/* ------------------------------------------------------------------------- */
-
 .cert-item::before {
     content: "";
     position: absolute;
@@ -547,8 +509,6 @@ footer {
     z-index: 1;
     pointer-events: none;
     opacity: 0;
-
-    /* Рисуем паттерн полосок */
     background-image: linear-gradient(
         135deg,
         rgba(0, 0, 0, 0.3) 0%,
@@ -562,7 +522,6 @@ footer {
     );
     background-size: 20px 20px;
 
-    /* МЯГКАЯ МАСКА: полосы просвечивают на 100% по краям и размываются/гаснут до 20% в зоне текста */
     -webkit-mask-image: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.8) 0%,
@@ -582,9 +541,7 @@ footer {
 .cert-item:hover::before {
     opacity: 1;
     animation: 
-        /* Разгон (анимация ускоряется к концу выезда) */
         slashFlyIn 0.35s cubic-bezier(0.7, 0, 0.84, 0) forwards,
-        /* Бесконечный сдвиг */
         slashInfiniteShift 1s linear infinite 0.35s;
 }
 
@@ -608,7 +565,6 @@ footer {
     }
 }
 
-/* Адаптив под мобильные устройства */
 @media (max-width: 680px) {
     .cert-item {
         grid-template-columns: 1fr;
